@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulación Modulo 3 - Evaluación</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .hidden { display: none; }  
+    
+    h4 {
+      text-align: center;
+      font-size: 30px;
+    }
+
+    /* Imagen de fondo con opacidad independiente */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('imgs/UNAM.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+      opacity: 0.1;
+      z-index: -1;
+    }
+    
+    .question-card {
+      border: 2px solid #dee2e6;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: white;
+    }
+    
+    .option-card {
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .option-card:hover {
+      background-color: #f8f9fa;
+      border-color: #0d6efd;
+    }
+    
+    .option-card.selected {
+      background-color: #e7f3ff;
+      border-color: #0d6efd;
+    }
+    
+    .option-card.correct {
+      background-color: #d1e7dd;
+      border-color: #198754;
+    }
+    
+    .option-card.incorrect {
+      background-color: #f8d7da;
+      border-color: #dc3545;
+    }
+    
+    .calificacion {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    
+    .excelente {
+      background-color: #d1e7dd;
+      color: #0f5132;
+    }
+    
+    .bueno {
+      background-color: #fff3cd;
+      color: #664d03;
+    }
+    
+    .regular {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+  <div class="container py-5">
+    <!-- Pantalla Inicial -->
+    <div id="inicio" class="text-center">
+      <h1 class="mb-3">Evaluación: Formulación de Objetivos SMART</h1>
+      <p class="lead"> 
+        Esta evaluación te permitirá poner a prueba tus conocimientos sobre la formulación de objetivos SMART.
+        <br>
+        Responde las preguntas de opción múltiple basándote en el caso de estudio proporcionado.
+      </p>
+      <br>
+      <button class="btn btn-primary btn-lg" onclick="mostrarPaso(1)">Comenzar Evaluación</button>
+    </div>
+
+    <!-- Caso de Estudio -->
+    <div id="casoEstudio" class="hidden">
+      <h3>Caso de Estudio</h3>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Situación: Universidad Innovadora</h5>
+          <p><strong>Contexto:</strong> La Universidad ha identificado que solo el 40% de sus docentes utiliza herramientas digitales interactivas en sus clases. Los datos triangulados muestran:</p>
+          <ul>
+            <li>Encuestas a docentes revelan falta de capacitación</li>
+            <li>Observación en aulas muestra uso limitado a presentaciones PPT</li>
+            <li>Evaluación de competencias digitales indica nivel básico en el 70% del profesorado</li>
+          </ul>
+          <p><strong>Objetivo propuesto:</strong> "Incrementar del 40% al 80% el uso de herramientas digitales interactivas en las clases durante los próximos 6 meses, mediante capacitación docente y dotación de recursos tecnológicos, para mejorar la calidad educativa y preparar a los estudiantes para el mundo digital."</p>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <button class="btn btn-success btn-lg" onclick="mostrarPaso(2)">Continuar a la Evaluación</button>
+      </div>
+    </div>
+
+    <!-- Paso 1: Diagnóstico -->
+    <div id="paso1" class="hidden">
+      <h3>Parte 1: Diagnóstico</h3>
+      <form id="formDiagnostico">
+        
+        <!-- Pregunta 1 -->
+        <div class="question-card">
+          <h5>1. ¿Cuál es la debilidad principal identificada en el caso?</h5>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'diagnostico', 'a')">
+            <strong>A)</strong> Falta de interés de los estudiantes
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'diagnostico', 'b')">
+            <strong>B)</strong> Solo el 40% de los docentes utiliza herramientas digitales interactivas
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'diagnostico', 'c')">
+            <strong>C)</strong> Infraestructura tecnológica insuficiente
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'diagnostico', 'd')">
+            <strong>D)</strong> Baja calidad del contenido educativo
+          </div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="question-card">
+          <h5>2. ¿Qué método de triangulación se utilizó para validar la debilidad?</h5>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'diagnostico', 'a')">
+            <strong>A)</strong> Solo encuestas a estudiantes
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'diagnostico', 'b')">
+            <strong>B)</strong> Encuestas a docentes, observación en aulas y evaluación de competencias
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'diagnostico', 'c')">
+            <strong>C)</strong> Análisis de documentos oficiales únicamente
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'diagnostico', 'd')">
+            <strong>D)</strong> Entrevistas con directivos
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Siguiente Parte</button>
+      </form>
+    </div>
+
+    <!-- Paso 2: Componentes SMART -->
+    <div id="paso2" class="hidden">
+      <h3>Parte 2: Componentes SMART</h3>
+      <form id="formSMART">
+        
+        <!-- Pregunta 3 -->
+        <div class="question-card">
+          <h5>3. ¿Qué hace ESPECÍFICO al objetivo propuesto?</h5>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'smart', 'a')">
+            <strong>A)</strong> Se enfoca claramente en incrementar el uso de herramientas digitales interactivas
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'smart', 'b')">
+            <strong>B)</strong> Menciona un porcentaje exacto de mejora
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'smart', 'c')">
+            <strong>C)</strong> Establece un plazo de 6 meses
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'smart', 'd')">
+            <strong>D)</strong> Incluye todos los componentes a la vez
+          </div>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="question-card">
+          <h5>4. El componente MEDIBLE del objetivo se refleja en:</h5>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'smart', 'a')">
+            <strong>A)</strong> La mejora del 40% al 80% en el uso de herramientas
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'smart', 'b')">
+            <strong>B)</strong> La capacitación docente programada
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'smart', 'c')">
+            <strong>C)</strong> La mejora en la calidad educativa
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'smart', 'd')">
+            <strong>D)</strong> La preparación para el mundo digital
+          </div>
+        </div>
+
+        <!-- Pregunta 5 -->
+        <div class="question-card">
+          <h5>5. ¿Qué hace ALCANZABLE este objetivo?</h5>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'smart', 'a')">
+            <strong>A)</strong> La mención de capacitación y recursos necesarios
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'smart', 'b')">
+            <strong>B)</strong> El establecimiento de un plazo corto
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'smart', 'c')">
+            <strong>C)</strong> La inclusión de todos los docentes
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'smart', 'd')">
+            <strong>D)</strong> El enfoque en herramientas digitales
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Siguiente Parte</button>
+      </form>
+    </div>
+
+    <!-- Paso 3: Integración SMART -->
+    <div id="paso3" class="hidden">
+      <h3>Parte 3: Integración SMART</h3>
+      <form id="formIntegracion">
+        
+        <!-- Pregunta 6 -->
+        <div class="question-card">
+          <h5>6. El componente RELEVANTE se demuestra mediante:</h5>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'integracion', 'a')">
+            <strong>A)</strong> La mejora de la calidad educativa y preparación para el mundo digital
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'integracion', 'b')">
+            <strong>B)</strong> El porcentaje de mejora establecido
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'integracion', 'c')">
+            <strong>C)</strong> El plazo de 6 meses
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'integracion', 'd')">
+            <strong>D)</strong> La mención de herramientas específicas
+          </div>
+        </div>
+
+        <!-- Pregunta 7 -->
+        <div class="question-card">
+          <h5>7. El componente TEMPORAL está representado por:</h5>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'integracion', 'a')">
+            <strong>A)</strong> El período de 6 meses con evaluaciones trimestrales
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'integracion', 'b')">
+            <strong>B)</strong> La mención de "próximos" meses
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'integracion', 'c')">
+            <strong>C)</strong> La referencia al año académico
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'integracion', 'd')">
+            <strong>D)</strong> No se especifica un tiempo concreto
+          </div>
+        </div>
+
+        <!-- Pregunta 8 -->
+        <div class="question-card">
+          <h5>8. ¿Por qué este objetivo se considera un buen ejemplo SMART?</h5>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'integracion', 'a')">
+            <strong>A)</strong> Integra claramente los cinco componentes del método SMART
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'integracion', 'b')">
+            <strong>B)</strong> Es muy ambicioso y complejo
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'integracion', 'c')">
+            <strong>C)</strong> Utiliza terminología técnica avanzada
+          </div>
+          <div class="option-card" onclick="seleccionarOpcion(this, 'integracion', 'd')">
+            <strong>D)</strong> Se enfoca en un solo aspecto del problema
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Ver Calificación</button>
+      </form>
+    </div>
+
+    <!-- Resultado Final con Calificación -->
+    <div id="resultado" class="hidden">
+      <h3>📊 Resultados de tu Evaluación</h3>
+      
+      <div id="calificacionContainer" class="calificacion">
+        <!-- La calificación se insertará aquí -->
+      </div>
+      
+      <div class="card mt-3">
+        <div class="card-body">
+          <h5 class="card-title">Respuestas Correctas</h5>
+          
+          <div class="question-card">
+            <h6>1. ¿Cuál es la debilidad principal identificada en el caso?</h6>
+            <div class="option-card correct">
+              <strong>Respuesta correcta:</strong> B) Solo el 40% de los docentes utiliza herramientas digitales interactivas
+            </div>
+            <div id="respuesta1" class="mt-2"></div>
+          </div>
+
+          <div class="question-card">
+            <h6>2. ¿Qué método de triangulación se utilizó para validar la debilidad?</h6>
+            <div class="option-card correct">
+              <strong>Respuesta correcta:</strong> B) Encuestas a docentes, observación en aulas y evaluación de competencias
+            </div>
+            <div id="respuesta2" class="mt-2"></div>
+          </div>
+
+          <div class="question-card">
+            <h6>3. ¿Qué hace ESPECÍFICO al objetivo propuesto?</h6>
+            <div class="option-card correct">
+              <strong>Respuesta correcta:</strong> A) Se enfoca claramente en incrementar el uso de herramientas digitales interactivas
+            </div>
+            <div id="respuesta3" class="mt-2"></div>
+          </div>
+
+          <div class="question-card">
+            <h6>4. El componente MEDIBLE del objetivo se refleja en:</h6>
+            <div class="option-card correct">
+              <strong>Respuesta correcta:</strong> A) La mejora del 40% al 80% en el uso de herramientas
+            </div>
+            <div id="respuesta4" class="mt-2"></div>
+          </div>
+
+          <div class="question-card">
+            <h6>5. ¿Qué hace ALCANZABLE este objetivo?</h6>
+            <div class="option-card correct">
+              <strong>Respuesta correcta:</strong> A) La mención de capacitación y recursos necesarios
+            </div>
+            <div id="respuesta5" class="mt-2"></div>
+          </div>
+
+          <div class="question-card">
+            <h6>6. El componente RELEVANTE se demuestra mediante:</h6>
+            <div class="option-card correct">
+              <strong>Respuesta correcta:</strong> A) La mejora de la calidad educativa y preparación para el mundo digital
+            </div>
+            <div id="respuesta6" class="mt-2"></div>
+          </div>
+
+          <div class="question-card">
+            <h6>7. El componente TEMPORAL está representado por:</h6>
+            <div class="option-card correct">
+              <strong>Respuesta correcta:</strong> A) El período de 6 meses con evaluaciones trimestrales
+            </div>
+            <div id="respuesta7" class="mt-2"></div>
+          </div>
+
+          <div class="question-card">
+            <h6>8. ¿Por qué este objetivo se considera un buen ejemplo SMART?</h6>
+            <div class="option-card correct">
+              <strong>Respuesta correcta:</strong> A) Integra claramente los cinco componentes del método SMART
+            </div>
+            <div id="respuesta8" class="mt-2"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Botón de Reinicio -->
+      <div class="mt-4 text-center">
+        <button class="btn btn-success" onclick="reiniciarSimulacion()">Realizar Otra Evaluación</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Respuestas correctas
+    const respuestasCorrectas = {
+      diagnostico: {
+        1: 'b',
+        2: 'b'
+      },
+      smart: {
+        3: 'a',
+        4: 'a',
+        5: 'a'
+      },
+      integracion: {
+        6: 'a',
+        7: 'a',
+        8: 'a'
+      }
+    };
+
+    // Almacenar respuestas del usuario
+    let respuestasUsuario = {
+      diagnostico: {},
+      smart: {},
+      integracion: {}
+    };
+
+    function mostrarPaso(n) {
+      document.querySelectorAll(".container > div").forEach(div => div.classList.add("hidden"));
+      
+      if (n === 1) {
+        document.getElementById("casoEstudio").classList.remove("hidden");
+      } else if (n === 2) {
+        document.getElementById("paso1").classList.remove("hidden");
+      } else {
+        document.getElementById("paso" + (n-1)).classList.remove("hidden");
+      }
+    }
+
+    function seleccionarOpcion(elemento, seccion, opcion) {
+      // Obtener el índice de la pregunta
+      const preguntaElement = elemento.closest('.question-card');
+      const todasLasPreguntas = Array.from(document.querySelectorAll('.question-card'));
+      const indicePregunta = todasLasPreguntas.indexOf(preguntaElement) + 1;
+      
+      // Limpiar selección anterior en esta pregunta
+      const opciones = preguntaElement.querySelectorAll('.option-card');
+      opciones.forEach(op => op.classList.remove('selected'));
+      
+      // Marcar nueva selección
+      elemento.classList.add('selected');
+      
+      // Guardar respuesta
+      respuestasUsuario[seccion][indicePregunta] = opcion;
+    }
+
+    function calcularCalificacion() {
+      let correctas = 0;
+      const totalPreguntas = 8;
+      
+      // Verificar respuestas de diagnóstico
+      for (let i = 1; i <= 2; i++) {
+        if (respuestasUsuario.diagnostico[i] === respuestasCorrectas.diagnostico[i]) {
+          correctas++;
+        }
+      }
+      
+      // Verificar respuestas SMART
+      for (let i = 3; i <= 5; i++) {
+        if (respuestasUsuario.smart[i] === respuestasCorrectas.smart[i]) {
+          correctas++;
+        }
+      }
+      
+      // Verificar respuestas de integración
+      for (let i = 6; i <= 8; i++) {
+        if (respuestasUsuario.integracion[i] === respuestasCorrectas.integracion[i]) {
+          correctas++;
+        }
+      }
+      
+      return {
+        correctas: correctas,
+        total: totalPreguntas,
+        porcentaje: Math.round((correctas / totalPreguntas) * 100)
+      };
+    }
+
+    function mostrarResultados() {
+      const calificacion = calcularCalificacion();
+      const container = document.getElementById('calificacionContainer');
+      
+      // Mostrar calificación
+      let claseCalificacion = '';
+      let mensaje = '';
+      
+      if (calificacion.porcentaje >= 90) {
+        claseCalificacion = 'excelente';
+        mensaje = '¡Excelente! Dominas completamente la formulación de objetivos SMART';
+      } else if (calificacion.porcentaje >= 70) {
+        claseCalificacion = 'bueno';
+        mensaje = 'Buen trabajo. Tienes un buen entendimiento de los objetivos SMART';
+      } else {
+        claseCalificacion = 'regular';
+        mensaje = 'Necesitas repasar los conceptos de objetivos SMART';
+      }
+      
+      container.innerHTML = `
+        <h4>Calificación: ${calificacion.porcentaje}%</h4>
+        <p>${calificacion.correctas} de ${calificacion.total} respuestas correctas</p>
+        <p>${mensaje}</p>
+      `;
+      container.className = `calificacion ${claseCalificacion}`;
+      
+      // Mostrar respuestas del usuario
+      for (let i = 1; i <= 8; i++) {
+        const elemento = document.getElementById(`respuesta${i}`);
+        let respuestaUsuario = '';
+        
+        if (i <= 2) {
+          respuestaUsuario = respuestasUsuario.diagnostico[i];
+        } else if (i <= 5) {
+          respuestaUsuario = respuestasUsuario.smart[i];
+        } else {
+          respuestaUsuario = respuestasUsuario.integracion[i];
+        }
+        
+        if (respuestaUsuario) {
+          const letras = ['a', 'b', 'c', 'd'];
+          const opciones = document.querySelectorAll(`.question-card:nth-child(${i}) .option-card`);
+          let textoOpcion = '';
+          
+          opciones.forEach((op, index) => {
+            if (letras[index] === respuestaUsuario) {
+              textoOpcion = op.textContent.trim();
+            }
+          });
+          
+          const esCorrecta = respuestaUsuario === 
+            (i <= 2 ? respuestasCorrectas.diagnostico[i] : 
+             i <= 5 ? respuestasCorrectas.smart[i] : 
+             respuestasCorrectas.integracion[i]);
+          
+          elemento.innerHTML = `
+            <strong>Tu respuesta:</strong> ${textoOpcion}
+            <span class="badge ${esCorrecta ? 'bg-success' : 'bg-danger'} ms-2">
+              ${esCorrecta ? 'Correcta' : 'Incorrecta'}
+            </span>
+          `;
+        } else {
+          elemento.innerHTML = '<strong>No respondiste esta pregunta</strong>';
+        }
+      }
+    }
+
+    // Event listeners para los formularios
+    document.getElementById("formDiagnostico").addEventListener("submit", e => {
+      e.preventDefault();
+      // Verificar que se hayan respondido todas las preguntas
+      if (Object.keys(respuestasUsuario.diagnostico).length < 2) {
+        alert('Por favor responde todas las preguntas antes de continuar');
+        return;
+      }
+      mostrarPaso(3);
+    });
+
+    document.getElementById("formSMART").addEventListener("submit", e => {
+      e.preventDefault();
+      // Verificar que se hayan respondido todas las preguntas
+      if (Object.keys(respuestasUsuario.smart).length < 3) {
+        alert('Por favor responde todas las preguntas antes de continuar');
+        return;
+      }
+      mostrarPaso(4);
+    });
+
+    document.getElementById("formIntegracion").addEventListener("submit", e => {
+      e.preventDefault();
+      // Verificar que se hayan respondido todas las preguntas
+      if (Object.keys(respuestasUsuario.integracion).length < 3) {
+        alert('Por favor responde todas las preguntas antes de continuar');
+        return;
+      }
+      
+      mostrarResultados();
+      document.querySelectorAll(".container > div").forEach(div => div.classList.add("hidden"));
+      document.getElementById("resultado").classList.remove("hidden");
+    });
+
+    // Función para reiniciar la simulación
+    function reiniciarSimulacion() {
+      // Limpiar todas las selecciones
+      document.querySelectorAll('.option-card').forEach(op => {
+        op.classList.remove('selected', 'correct', 'incorrect');
+      });
+      
+      // Reiniciar respuestas
+      respuestasUsuario = {
+        diagnostico: {},
+        smart: {},
+        integracion: {}
+      };
+      
+      // Volver a la pantalla inicial
+      document.querySelectorAll(".container > div").forEach(div => div.classList.add("hidden"));
+      document.getElementById("inicio").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
